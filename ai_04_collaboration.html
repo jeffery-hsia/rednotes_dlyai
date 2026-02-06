@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04. 深度合作细节 — REDNOTE STRATEGY</title>
+    <style>
+        :root{--bg:#050505;--text:#fff;--acc:#00f3ff;--acc2:#bc13fe;--font:'JetBrains Mono','Fira Code','Courier New',monospace;--card:rgba(10,20,10,0.9)}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:var(--bg);color:var(--text);font-family:var(--font);background-image:linear-gradient(rgba(0,255,65,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,65,.03) 1px,transparent 1px);background-size:20px 20px;min-height:100vh;overflow-x:hidden}
+        .accent{color:var(--acc)} .acc2{color:var(--acc2)}
+        h1,h2,h3{text-transform:uppercase;letter-spacing:1px}
+        p{line-height:1.8;font-size:.95rem;margin-bottom:12px}
+        .nav{position:fixed;top:0;width:100%;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;z-index:1000;backdrop-filter:blur(8px);border-bottom:1px solid #222}
+        .logo{font-size:1.2rem;font-weight:bold;letter-spacing:2px}
+        .back{cursor:pointer;padding:10px 20px;font-size:.8rem;text-transform:uppercase;letter-spacing:2px;border-radius:50px;border:1px solid var(--acc);color:var(--acc);background:0 0;text-decoration:none;transition:.3s;font-family:var(--font)}
+        .back:hover{box-shadow:0 0 15px var(--acc);background:rgba(0,243,255,.1)}
+        .wrap{max-width:960px;margin:0 auto;padding:120px 30px 80px}
+        .hero{text-align:center;margin-bottom:50px}
+        .hero .num{font-size:6rem;opacity:.08;font-weight:bold;line-height:1}
+        .hero h1{font-size:2.6rem;line-height:1.2;margin-bottom:12px}
+        .hero .sub{opacity:.7;font-size:.95rem}
+        .block{border:1px solid #333;background:var(--card);box-shadow:4px 4px 0 #333;padding:32px;margin-bottom:24px}
+        .block h2{font-size:1.2rem;margin-bottom:16px;color:var(--acc)}
+
+        .agent-card{border:1px solid #444;padding:20px;margin-bottom:14px;display:flex;align-items:flex-start;gap:16px}
+        .agent-card svg{flex-shrink:0}
+        .agent-card .agent-tag{font-size:.65rem;color:var(--acc);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px}
+        .agent-card h3{font-size:1rem;margin-bottom:6px}
+        .agent-card p{margin-bottom:0;font-size:.85rem;opacity:.8}
+
+        .duo-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+        .duo-card{border:1px solid #333;padding:20px;display:flex;flex-direction:column;gap:8px}
+        .duo-card svg{margin-bottom:4px}
+        .duo-card h3{font-size:.95rem;margin-bottom:0}
+        .duo-card p{font-size:.85rem;opacity:.8;margin-bottom:0}
+
+        .stat-row{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0}
+        .stat{flex:1;min-width:120px;text-align:center;padding:20px 12px;border:1px solid #333}
+        .stat .n{font-size:2rem;font-weight:bold;color:var(--acc);line-height:1.1}
+        .stat .l{font-size:.7rem;text-transform:uppercase;letter-spacing:1px;opacity:.6;margin-top:6px}
+
+        .progress-row{display:flex;flex-direction:column;gap:10px;margin:16px 0}
+        .prog{display:flex;align-items:center;gap:12px}
+        .prog-l{font-size:.8rem;min-width:100px;text-align:right;font-weight:bold}
+        .prog-track{flex:1;height:10px;border-radius:5px;background:#222;overflow:hidden}
+        .prog-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--acc),var(--acc2))}
+        .prog-val{font-size:.75rem;min-width:40px;color:var(--acc)}
+
+        .icon-row{display:flex;gap:20px;flex-wrap:wrap;margin:16px 0}
+        .icon-item{display:flex;align-items:flex-start;gap:12px;flex:1;min-width:180px}
+        .icon-item svg{flex-shrink:0;margin-top:2px}
+        .icon-label{font-size:.85rem;line-height:1.5}
+        .icon-label strong{display:block;margin-bottom:2px}
+
+        .callout{border-left:3px solid var(--acc);padding:16px 20px;margin:16px 0;background:rgba(0,243,255,.03);font-size:.9rem}
+        .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+        .tag{padding:4px 10px;font-size:.7rem;border-radius:4px;background:#111;border:1px solid var(--acc);color:var(--acc)}
+        footer{text-align:center;padding:40px;margin-top:50px;font-size:.8rem;opacity:.5}
+        @media(max-width:700px){.duo-grid{grid-template-columns:1fr}.stat-row{flex-direction:column}.icon-row{flex-direction:column}}
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="rednote_proposal.html" class="back">← BACK</a>
+        <div class="logo">REDNOTE <span class="accent">X</span> DLY AI</div>
+    </nav>
+    <div class="wrap">
+        <section class="hero">
+            <div class="num">04</div>
+            <h1>深度合作细节</h1>
+            <p class="sub">DLY AI 助力小红书打入硅谷创业圈的三大支点</p>
+        </section>
+
+        <div class="block">
+            <h2>// 4.1 AI Agent 内容全自动化流水线</h2>
+            <p>降低内容产出门槛，吸引海量 KOC/KOL 入驻。</p>
+            <div class="agent-card">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="30" height="30" rx="4" stroke="#00f3ff" stroke-width="1.2"/><path d="M12 18h12M18 12v12" stroke="#00f3ff" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <div><div class="agent-tag">Agent 01</div><h3>多模态内容生成</h3><p>技术文档 / GitHub 仓库 / 长视频 → 小红书审美图文笔记 & 短视频卡点</p></div>
+            </div>
+            <div class="agent-card">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="14" stroke="#bc13fe" stroke-width="1.2"/><path d="M12 18c0-3.3 2.7-6 6-6s6 2.7 6 6-2.7 6-6 6" stroke="#bc13fe" stroke-width="1.2"/><circle cx="18" cy="18" r="2" fill="#bc13fe"/></svg>
+                <div><div class="agent-tag" style="color:var(--acc2)">Agent 02</div><h3>审美感知 & 风格迁移</h3><p>自动适配 RedNote 视觉规范（柔光 / 粉色调 / 方比例），确保发现页高点击率</p></div>
+            </div>
+            <div class="agent-card">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M4 18h6l4-10 4 20 4-10h6" stroke="#00f3ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div><div class="agent-tag">Agent 03</div><h3>实时热点捕捉 & 改写</h3><p>自动监控 Reddit / X / Substack AI 趋势，结合小红书流量规则二次创作</p></div>
+            </div>
+        </div>
+
+        <div class="block">
+            <h2>// 4.2 硅谷"干货型"KOL 生态</h2>
+            <div class="duo-grid">
+                <div class="duo-card">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="8" width="24" height="16" rx="2" stroke="#00f3ff" stroke-width="1.2"/><circle cx="16" cy="16" r="4" stroke="#00f3ff" stroke-width="1.2"/><path d="M22 12l-2 2" stroke="#00f3ff" stroke-width="1"/></svg>
+                    <h3 class="accent">"一人公司"纪录片</h3>
+                    <p>超级个体记录 AI Agent 从 0 到 1 的收入突破——Instagram/TikTok 稀缺的高价值长效流量</p>
+                </div>
+                <div class="duo-card" style="border-color:var(--acc2)">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="6" y="4" width="20" height="24" rx="2" stroke="#bc13fe" stroke-width="1.2"/><path d="M11 12h10M11 16h8M11 20h6" stroke="#bc13fe" stroke-width="1"/></svg>
+                    <h3 class="acc2">代码化分享</h3>
+                    <p>直接提供 Prompt / 配置模板——从"看内容"到"拿工具"的闭环，极大提升留存率</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="block">
+            <h2>// 4.3 B2B 的 GEO 实验场</h2>
+            <div class="progress-row">
+                <div class="prog"><span class="prog-l">内容产出</span><div class="prog-track"><div class="prog-fill" style="width:92%"></div></div><span class="prog-val">92%</span></div>
+                <div class="prog"><span class="prog-l">信任背书</span><div class="prog-track"><div class="prog-fill" style="width:78%"></div></div><span class="prog-val">78%</span></div>
+                <div class="prog"><span class="prog-l">AI 搜索截流</span><div class="prog-track"><div class="prog-fill" style="width:65%"></div></div><span class="prog-val">65%</span></div>
+                <div class="prog"><span class="prog-l">商业变现</span><div class="prog-track"><div class="prog-fill" style="width:55%"></div></div><span class="prog-val">55%</span></div>
+            </div>
+            <div class="icon-row">
+                <div class="icon-item">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="12" stroke="#00f3ff" stroke-width="1.2"/><path d="M10 14l3 3 5-5" stroke="#00f3ff" stroke-width="1.5"/></svg>
+                    <div class="icon-label"><strong>信任重构</strong>"真实笔记"作为 B2B 信任背书，深度评测建立口碑体系</div>
+                </div>
+                <div class="icon-item">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 3L25 9V19L14 25L3 19V9L14 3Z" stroke="#00f3ff" stroke-width="1.2"/></svg>
+                    <div class="icon-label"><strong>截流 AI 搜索</strong>结构化干货被 LLM 引用，成为硅谷技术类首选语料库</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="block">
+            <h2>// 商业模式 & 风险应对</h2>
+            <div class="stat-row">
+                <div class="stat"><div class="n">$1M</div><div class="l">前 100 万美元免佣</div></div>
+                <div class="stat"><div class="n">API</div><div class="l">一键发布能力</div></div>
+                <div class="stat"><div class="n">IP</div><div class="l">本地化品牌安全</div></div>
+            </div>
+            <div class="callout">
+                <strong>策略性布局：</strong>使用 "RedNote" 品牌名强调多元文化 · 与 DLY AI 等本地服务商合作确保数据合规 · 利用本地 IP 降低地缘风险。
+            </div>
+            <div class="tags">
+                <span class="tag">CONTENT PIPELINE</span>
+                <span class="tag">KOL ECOSYSTEM</span>
+                <span class="tag">B2B GEO</span>
+                <span class="tag">COMMISSION-FREE</span>
+            </div>
+        </div>
+    </div>
+    <footer><p>&copy; 2026 RedNote x DLY AI Co-Work Proposal. Strictly Confidential.</p></footer>
+</body>
+</html>

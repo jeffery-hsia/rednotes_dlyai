@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04. 中国设计师的全球化"返场" — REDNOTE STRATEGY</title>
+    <style>
+        :root {
+            --fash-bg: #f8f8f8;
+            --fash-text: #1a1a1a;
+            --fash-accent: #ff2e63;
+            --fash-font: 'Didot', 'Bodoni MT', 'Playfair Display', serif;
+            --fash-sec-font: 'Helvetica Neue', Arial, sans-serif;
+            --fash-card-bg: #ffffff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--fash-bg); color: var(--fash-text); font-family: var(--fash-sec-font); min-height: 100vh; overflow-x: hidden; }
+        .accent { color: var(--fash-accent); }
+        h1, h2, h3 { font-family: var(--fash-font); font-style: italic; }
+        p { line-height: 1.8; font-size: 0.95rem; margin-bottom: 15px; }
+
+        .nav-header { position: fixed; top: 0; width: 100%; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(8px); }
+        .logo { font-size: 1.2rem; font-weight: bold; letter-spacing: 2px; font-family: var(--fash-sec-font); }
+        .back-btn { cursor: pointer; padding: 10px 20px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; background: #000; color: #fff; border: none; text-decoration: none; transition: 0.3s; font-family: var(--fash-sec-font); }
+        .back-btn:hover { background: var(--fash-accent); }
+
+        .content { max-width: 960px; margin: 0 auto; padding: 120px 30px 80px; }
+        .hero { text-align: center; margin-bottom: 60px; }
+        .hero .section-label { font-family: var(--fash-sec-font); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 4px; color: var(--fash-accent); margin-bottom: 16px; }
+        .hero h1 { font-size: 3.2rem; line-height: 1.15; margin-bottom: 16px; }
+        .hero .subtitle { opacity: 0.6; font-size: 1rem; max-width: 600px; margin: 0 auto; }
+
+        .section-block { background: var(--fash-card-bg); box-shadow: 0 30px 60px rgba(0,0,0,0.08); border-radius: 2px; padding: 40px; margin-bottom: 30px; }
+        .section-block h2 { font-size: 1.6rem; margin-bottom: 20px; }
+
+        .editorial-quote { font-family: var(--fash-font); font-style: italic; font-size: 1.5rem; line-height: 1.5; padding: 30px 40px; margin: 30px 0; border-left: 3px solid var(--fash-accent); color: #333; }
+
+        /* Designer profile cards - enhanced */
+        .designer-feature { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0; }
+        .designer-profile { border: 1px solid #eee; padding: 32px; position: relative; overflow: hidden; transition: .3s; }
+        .designer-profile:hover { border-color: var(--fash-accent); transform: translateY(-2px); }
+        .designer-profile::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--fash-accent); transform: scaleX(0); transition: .3s; transform-origin: left; }
+        .designer-profile:hover::after { transform: scaleX(1); }
+        .designer-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+        .designer-avatar { width: 56px; height: 56px; border-radius: 50%; background: #fff0f3; display: flex; align-items: center; justify-content: center; font-family: var(--fash-font); font-style: italic; font-size: 1.2rem; color: var(--fash-accent); flex-shrink: 0; }
+        .designer-profile .name { font-family: var(--fash-font); font-style: italic; font-size: 1.4rem; margin-bottom: 2px; }
+        .designer-profile .collab-list { font-size: 0.75rem; color: var(--fash-accent); text-transform: uppercase; letter-spacing: 1px; }
+        .designer-profile p { font-size: 0.9rem; margin-bottom: 0; }
+
+        /* Collab grid with icons */
+        .collab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 24px 0; }
+        .collab-card { padding: 24px; border: 1px solid #eee; display: flex; gap: 16px; align-items: flex-start; transition: .3s; }
+        .collab-card:hover { border-color: var(--fash-accent); }
+        .collab-icon { width: 44px; height: 44px; border-radius: 50%; background: #fff0f3; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .collab-card h4 { font-family: var(--fash-sec-font); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .collab-card p { font-size: 0.85rem; margin-bottom: 0; }
+
+        .highlight-strip { background: #000; color: #fff; padding: 30px 40px; margin: 30px 0; }
+        .highlight-strip h3 { color: #fff; margin-bottom: 10px; }
+
+        /* Action list with numbered items */
+        .action-list { margin: 24px 0; }
+        .action-item { display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid #eee; align-items: flex-start; transition: .3s; }
+        .action-item:hover { padding-left: 8px; }
+        .action-num { font-family: var(--fash-font); font-style: italic; font-size: 2.2rem; color: var(--fash-accent); min-width: 48px; line-height: 1; }
+        .action-item h3 { font-size: 1.1rem; margin-bottom: 8px; }
+        .action-item p { margin-bottom: 0; }
+
+        /* Visual metric strip */
+        .metric-strip { display: flex; gap: 16px; margin: 24px 0; }
+        .metric-item { flex: 1; text-align: center; padding: 20px; border: 1px solid #eee; }
+        .metric-item svg { margin-bottom: 8px; }
+        .metric-item .metric-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.5; margin-top: 6px; }
+        .metric-item .metric-val { font-family: var(--fash-font); font-style: italic; font-size: 1.2rem; color: var(--fash-accent); }
+
+        .tag-container { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+        .tag { padding: 4px 10px; font-size: 0.7rem; background: #eee; color: #000; font-family: var(--fash-sec-font); font-weight: 600; letter-spacing: 1px; }
+
+        footer { text-align: center; padding: 40px; margin-top: 50px; font-size: 0.8rem; opacity: 0.5; }
+
+        @media (max-width: 700px) { .designer-feature { grid-template-columns: 1fr; } .collab-grid { grid-template-columns: 1fr; } .metric-strip { flex-direction: column; } .hero h1 { font-size: 2.2rem; } }
+    </style>
+</head>
+<body>
+    <nav class="nav-header">
+        <a href="rednote_proposal.html?mode=fashion" class="back-btn">← BACK</a>
+        <div class="logo">REDNOTE <span class="accent">X</span> DLY AI</div>
+    </nav>
+
+    <div class="content">
+        <section class="hero">
+            <div class="section-label">Proposed by Dr. Jeffery Hsia // GLOBAL</div>
+            <h1>中国设计师的<br>全球化"返场"</h1>
+            <p class="subtitle">利用中国设计师的视角，重新诠释伦敦和北美的地标文化</p>
+        </section>
+
+        <div class="section-block">
+            <h2>全球化"返场"策略</h2>
+            <p>中国设计师在海外已具备极高的专业认可度，但其在 RedNote 上的能量尚未完全在全球范围内释放。</p>
+
+            <div class="editorial-quote">
+                "打破'廉价'刻板印象，展示'中国审美'的高级感。"
+            </div>
+
+            <div class="metric-strip">
+                <div class="metric-item">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="12" stroke="#ff2e63" stroke-width="1.2"/><path d="M10 16l4 4 8-8" stroke="#ff2e63" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <div class="metric-val">High</div>
+                    <div class="metric-label">国际认可度</div>
+                </div>
+                <div class="metric-item">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M7 14l7-7 7 7M7 21l7-7 7 7" stroke="#ff2e63" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <div class="metric-val">Rising</div>
+                    <div class="metric-label">全球影响力</div>
+                </div>
+                <div class="metric-item">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="4" width="24" height="24" rx="4" stroke="#ff2e63" stroke-width="1.2"/><path d="M12 16h8M16 12v8" stroke="#ff2e63" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    <div class="metric-val">Untapped</div>
+                    <div class="metric-label">RedNote 潜力</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-block">
+            <h2>核心设计师资源</h2>
+            <div class="designer-feature">
+                <div class="designer-profile">
+                    <div class="designer-header">
+                        <div class="designer-avatar">FCW</div>
+                        <div>
+                            <div class="name">Feng Chen Wang</div>
+                            <div class="collab-list">Converse · Ugg · Audi</div>
+                        </div>
+                    </div>
+                    <p>已与多个国际品牌深度联动，拥有极高国际认知度。联名款在 RedNote 上独家首发将成为强力引爆点。</p>
+                </div>
+                <div class="designer-profile">
+                    <div class="designer-header">
+                        <div class="designer-avatar">AC</div>
+                        <div>
+                            <div class="name">Angel Chen</div>
+                            <div class="collab-list">Global Fashion Week</div>
+                        </div>
+                    </div>
+                    <p>以色彩和文化融合著称的中国设计师，在国际时尚圈拥有独特品牌识别度，适合"文化出海"主题传播。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-block">
+            <h2>"全球首秀"与"本土反馈"联动</h2>
+            <div class="collab-grid">
+                <div class="collab-card">
+                    <div class="collab-icon">
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3l2 4 5 1-4 3 1 5-4-2-4 2 1-5-4-3 5-1z" stroke="#ff2e63" stroke-width="1" stroke-linejoin="round"/></svg>
+                    </div>
+                    <div>
+                        <h4>独家联名发布</h4>
+                        <p>将设计师与国际大牌的最新联名款放在 RedNote 进行海外首发测评。如 Feng Chen Wang x Converse 等联名款。</p>
+                    </div>
+                </div>
+                <div class="collab-card">
+                    <div class="collab-icon">
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="#ff2e63" stroke-width="1"/><path d="M11 6v5l3 3" stroke="#ff2e63" stroke-width="1" stroke-linecap="round"/></svg>
+                    </div>
+                    <div>
+                        <h4>"中国审美"文化出海</h4>
+                        <p>利用中国设计师视角，重新诠释伦敦和北美地标文化。用真实感（Authenticity）打动西方用户。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-strip">
+            <h3 style="font-family:var(--fash-font);font-style:italic">核心逻辑</h3>
+            <p style="margin-bottom:0">"用音乐厂牌带氛围，用时尚圈层定格调，用出海设计师造爆点"——这种"降维打击"将使小红书不仅是中国人的海外手册，更成为伦敦和北美潮流引领者的必备工具。</p>
+        </div>
+
+        <div class="section-block">
+            <h2>行动要点</h2>
+            <div class="action-list">
+                <div class="action-item">
+                    <div class="action-num">01</div>
+                    <div>
+                        <h3>启动"全球博主扶持计划"</h3>
+                        <p>针对伦敦和北美时尚圈 KOC/KOL 资源，争取小红书海外版初始流量加权，通过发布高质量秀场、DJ 现场笔记，确立平台"高端潮流"基调。</p>
+                    </div>
+                </div>
+                <div class="action-item">
+                    <div class="action-num">02</div>
+                    <div>
+                        <h3>举办 "RedNote 伦敦时尚之夜"</h3>
+                        <p>2026 年 2 月 LFW 期间，联合知名 DJ 厂牌与中国设计师举办线下派对。入场嘉宾通过 RedNote 发布 Recap，实现 O2O 爆发式传播。</p>
+                    </div>
+                </div>
+                <div class="action-item">
+                    <div class="action-num">03</div>
+                    <div>
+                        <h3>建立"品牌大使"矩阵</h3>
+                        <p>邀请具备国际声誉的华裔及亚裔名流在 RedNote 分享独家时尚见解，吸引时尚精英入驻。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tag-container">
+                <span class="tag">FENG CHEN WANG</span>
+                <span class="tag">ANGEL CHEN</span>
+                <span class="tag">CULTURE EXPORT</span>
+                <span class="tag">AUTHENTICITY</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 RedNote x DLY AI Co-Work Proposal. Strictly Confidential.</p>
+    </footer>
+</body>
+</html>

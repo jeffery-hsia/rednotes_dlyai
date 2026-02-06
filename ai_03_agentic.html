@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03. 一人公司 & AGENTIC AI — REDNOTE STRATEGY</title>
+    <style>
+        :root{--bg:#050505;--text:#fff;--acc:#00f3ff;--acc2:#bc13fe;--font:'JetBrains Mono','Fira Code','Courier New',monospace;--card:rgba(10,20,10,0.9)}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:var(--bg);color:var(--text);font-family:var(--font);background-image:linear-gradient(rgba(0,255,65,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,65,.03) 1px,transparent 1px);background-size:20px 20px;min-height:100vh;overflow-x:hidden}
+        .accent{color:var(--acc)} .acc2{color:var(--acc2)}
+        h1,h2,h3{text-transform:uppercase;letter-spacing:1px}
+        p{line-height:1.8;font-size:.95rem;margin-bottom:12px}
+        .nav{position:fixed;top:0;width:100%;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;z-index:1000;backdrop-filter:blur(8px);border-bottom:1px solid #222}
+        .logo{font-size:1.2rem;font-weight:bold;letter-spacing:2px}
+        .back{cursor:pointer;padding:10px 20px;font-size:.8rem;text-transform:uppercase;letter-spacing:2px;border-radius:50px;border:1px solid var(--acc);color:var(--acc);background:0 0;text-decoration:none;transition:.3s;font-family:var(--font)}
+        .back:hover{box-shadow:0 0 15px var(--acc);background:rgba(0,243,255,.1)}
+        .wrap{max-width:960px;margin:0 auto;padding:120px 30px 80px}
+        .hero{text-align:center;margin-bottom:50px}
+        .hero .num{font-size:6rem;opacity:.08;font-weight:bold;line-height:1}
+        .hero h1{font-size:2.6rem;line-height:1.2;margin-bottom:12px}
+        .hero .sub{opacity:.7;font-size:.95rem}
+        .block{border:1px solid #333;background:var(--card);box-shadow:4px 4px 0 #333;padding:32px;margin-bottom:24px}
+        .block h2{font-size:1.2rem;margin-bottom:16px;color:var(--acc)}
+        .stat-row{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0}
+        .stat{flex:1;min-width:120px;text-align:center;padding:20px 12px;border:1px solid #333}
+        .stat .n{font-size:2.2rem;font-weight:bold;color:var(--acc);line-height:1.1}
+        .stat .l{font-size:.7rem;text-transform:uppercase;letter-spacing:1px;opacity:.6;margin-top:6px}
+        .flow-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;margin:20px 0}
+        .flow-node{padding:14px 20px;font-size:.75rem;text-transform:uppercase;letter-spacing:1px;text-align:center;border:1px solid var(--acc);color:var(--acc);min-width:110px}
+        .flow-node .fn-title{font-size:.65rem;opacity:.5;margin-bottom:4px}
+        .flow-node .fn-main{font-size:.9rem;font-weight:bold}
+        .flow-arrow{opacity:.4;font-size:1.4rem}
+        .icon-row{display:flex;gap:20px;flex-wrap:wrap;margin:16px 0}
+        .icon-item{display:flex;align-items:flex-start;gap:12px;flex:1;min-width:180px}
+        .icon-item svg{flex-shrink:0;margin-top:2px}
+        .icon-label{font-size:.85rem;line-height:1.5}
+        .icon-label strong{display:block;margin-bottom:2px}
+        .callout{border-left:3px solid var(--acc);padding:16px 20px;margin:16px 0;background:rgba(0,243,255,.03);font-size:.9rem}
+        .callout.purple{border-left-color:var(--acc2);background:rgba(188,19,254,.03)}
+        .ring-chart{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin:20px 0}
+        .ring{text-align:center}
+        .ring svg{display:block;margin:0 auto 8px}
+        .ring .ring-val{font-size:.8rem;font-weight:bold}
+        .ring .ring-lbl{font-size:.7rem;opacity:.5}
+        .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+        .tag{padding:4px 10px;font-size:.7rem;border-radius:4px;background:#111;border:1px solid var(--acc);color:var(--acc)}
+        footer{text-align:center;padding:40px;margin-top:50px;font-size:.8rem;opacity:.5}
+        @media(max-width:700px){.stat-row{flex-direction:column}.flow-row{flex-direction:column}.flow-arrow{transform:rotate(90deg)}.icon-row{flex-direction:column}}
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="rednote_proposal.html" class="back">← BACK</a>
+        <div class="logo">REDNOTE <span class="accent">X</span> DLY AI</div>
+    </nav>
+    <div class="wrap">
+        <section class="hero">
+            <div class="num">03</div>
+            <h1>一人公司 &<br>Agentic AI</h1>
+            <p class="sub">硅谷 AI Agent 技术革命与一人公司范式崛起</p>
+        </section>
+
+        <div class="block">
+            <h2>// 核心趋势</h2>
+            <div class="ring-chart">
+                <div class="ring">
+                    <svg width="90" height="90" viewBox="0 0 90 90"><circle cx="45" cy="45" r="38" fill="none" stroke="#222" stroke-width="6"/><circle cx="45" cy="45" r="38" fill="none" stroke="var(--acc)" stroke-width="6" stroke-dasharray="96 143" stroke-dashoffset="-60" stroke-linecap="round"/><text x="45" y="42" text-anchor="middle" fill="var(--acc)" font-size="18" font-weight="bold" font-family="monospace">40%</text><text x="45" y="56" text-anchor="middle" fill="#fff" font-size="8" opacity=".6" font-family="monospace">+</text></svg>
+                    <div class="ring-val">企业工作流</div>
+                    <div class="ring-lbl">由 AI Agent 处理</div>
+                </div>
+                <div class="ring">
+                    <svg width="90" height="90" viewBox="0 0 90 90"><circle cx="45" cy="45" r="38" fill="none" stroke="#222" stroke-width="6"/><circle cx="45" cy="45" r="38" fill="none" stroke="var(--acc2)" stroke-width="6" stroke-dasharray="215 24" stroke-dashoffset="-60" stroke-linecap="round"/><text x="45" y="48" text-anchor="middle" fill="var(--acc2)" font-size="18" font-weight="bold" font-family="monospace">90%</text></svg>
+                    <div class="ring-val">创作内容</div>
+                    <div class="ring-lbl">AI 辅助生成 (2026)</div>
+                </div>
+                <div class="ring">
+                    <svg width="90" height="90" viewBox="0 0 90 90"><circle cx="45" cy="45" r="38" fill="none" stroke="#222" stroke-width="6"/><circle cx="45" cy="45" r="38" fill="none" stroke="#00ff88" stroke-width="6" stroke-dasharray="239 0" stroke-dashoffset="-60" stroke-linecap="round"/><text x="45" y="48" text-anchor="middle" fill="#00ff88" font-size="22" font-weight="bold" font-family="monospace">1</text></svg>
+                    <div class="ring-val">人 = 一家公司</div>
+                    <div class="ring-lbl">超级个体涌现</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="block">
+            <h2>// 3.1 AI 原生型组织转型</h2>
+            <p>AI Agent 不再只是工具，而是"数字员工"——负责客户服务、市场营销到代码编写的全流程。</p>
+            <div class="flow-row">
+                <div class="flow-node"><div class="fn-title">LISTENER</div><div class="fn-main">监控需求</div></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node"><div class="fn-title">TOPIC</div><div class="fn-main">生成创意</div></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node"><div class="fn-title">CREATOR</div><div class="fn-main">执行产出</div></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node" style="border-color:var(--acc2);color:var(--acc2)"><div class="fn-title">REDNOTE</div><div class="fn-main">低成本分发</div></div>
+            </div>
+            <div class="callout">这种模式对低成本、高效率的内容分发平台有极强依赖——正是小红书的核心优势。</div>
+        </div>
+
+        <div class="block">
+            <h2>// 3.2 Building in Public 需求</h2>
+            <div class="icon-row">
+                <div class="icon-item">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="3" y="5" width="26" height="22" rx="3" stroke="#00f3ff" stroke-width="1.2"/><path d="M10 14l4 4 8-8" stroke="#00f3ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <div class="icon-label"><strong>GitHub → 图文笔记</strong>代码仓库可视化转化，技术干货以高审美形式呈现</div>
+                </div>
+                <div class="icon-item">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="10" r="6" stroke="#00f3ff" stroke-width="1.2"/><path d="M6 28c0-5.5 4.5-10 10-10s10 4.5 10 10" stroke="#00f3ff" stroke-width="1.2"/></svg>
+                    <div class="icon-label"><strong>Tech Seeding</strong>种草逻辑→种技术，分享 AI 工作流吸引合作者与客户</div>
+                </div>
+            </div>
+            <div class="icon-row">
+                <div class="icon-item">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M4 16h6l3-8 3 16 3-8h6" stroke="#bc13fe" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <div class="icon-label"><strong>实时热点捕捉</strong>自动监控 Reddit / X / Substack，结合小红书规则二次创作</div>
+                </div>
+                <div class="icon-item">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="4" width="24" height="24" rx="4" stroke="#bc13fe" stroke-width="1.2"/><path d="M11 16h10M16 11v10" stroke="#bc13fe" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    <div class="icon-label"><strong>风格迁移 Agent</strong>自动适配 RedNote 视觉规范，确保高点击率</div>
+                </div>
+            </div>
+
+            <div class="callout purple">
+                <strong>DLY AI 赋能：</strong>利用 Agent 实现内容生产全自动化——代码转笔记、风格迁移、实时热点捕捉。为"一人公司"创作者提供全链路 AI 工具支持。
+            </div>
+            <div class="tags">
+                <span class="tag">AGENTIC AI</span>
+                <span class="tag">ONE-PERSON COMPANY</span>
+                <span class="tag">BUILDING IN PUBLIC</span>
+                <span class="tag">TECH SEEDING</span>
+            </div>
+        </div>
+    </div>
+    <footer><p>&copy; 2026 RedNote x DLY AI Co-Work Proposal. Strictly Confidential.</p></footer>
+</body>
+</html>

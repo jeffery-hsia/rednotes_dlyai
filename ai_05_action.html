@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05. 行动路径 — REDNOTE STRATEGY</title>
+    <style>
+        :root{--bg:#050505;--text:#fff;--acc:#00f3ff;--acc2:#bc13fe;--font:'JetBrains Mono','Fira Code','Courier New',monospace;--card:rgba(10,20,10,0.9)}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:var(--bg);color:var(--text);font-family:var(--font);background-image:linear-gradient(rgba(0,255,65,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,65,.03) 1px,transparent 1px);background-size:20px 20px;min-height:100vh;overflow-x:hidden}
+        .accent{color:var(--acc)} .acc2{color:var(--acc2)}
+        h1,h2,h3{text-transform:uppercase;letter-spacing:1px}
+        p{line-height:1.8;font-size:.95rem;margin-bottom:12px}
+        .nav{position:fixed;top:0;width:100%;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;z-index:1000;backdrop-filter:blur(8px);border-bottom:1px solid #222}
+        .logo{font-size:1.2rem;font-weight:bold;letter-spacing:2px}
+        .back{cursor:pointer;padding:10px 20px;font-size:.8rem;text-transform:uppercase;letter-spacing:2px;border-radius:50px;border:1px solid var(--acc);color:var(--acc);background:0 0;text-decoration:none;transition:.3s;font-family:var(--font)}
+        .back:hover{box-shadow:0 0 15px var(--acc);background:rgba(0,243,255,.1)}
+        .wrap{max-width:960px;margin:0 auto;padding:120px 30px 80px}
+        .hero{text-align:center;margin-bottom:50px}
+        .hero .num{font-size:6rem;opacity:.08;font-weight:bold;line-height:1}
+        .hero h1{font-size:2.6rem;line-height:1.2;margin-bottom:12px}
+        .hero .sub{opacity:.7;font-size:.95rem}
+        .block{border:1px solid #333;background:var(--card);box-shadow:4px 4px 0 #333;padding:32px;margin-bottom:24px}
+        .block h2{font-size:1.2rem;margin-bottom:16px;color:var(--acc)}
+
+        /* Timeline visual */
+        .timeline{position:relative;margin:20px 0;padding-left:50px}
+        .timeline::before{content:'';position:absolute;left:18px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--acc),var(--acc2),#00ff88)}
+        .tl-item{position:relative;margin-bottom:32px}
+        .tl-item:last-child{margin-bottom:0}
+        .tl-dot{position:absolute;left:-42px;top:0;width:20px;height:20px;border-radius:50%;border:2px solid var(--acc);background:var(--bg);display:flex;align-items:center;justify-content:center}
+        .tl-dot.active{background:var(--acc);box-shadow:0 0 16px var(--acc)}
+        .tl-dot.s2{border-color:var(--acc2)} .tl-dot.s2.active{background:var(--acc2);box-shadow:0 0 16px var(--acc2)}
+        .tl-dot.s3{border-color:#00ff88} .tl-dot.s3.active{background:#00ff88;box-shadow:0 0 16px #00ff88}
+        .tl-dot svg{width:10px;height:10px}
+        .tl-phase{font-size:.65rem;text-transform:uppercase;letter-spacing:2px;color:var(--acc);margin-bottom:6px}
+        .tl-phase.s2{color:var(--acc2)} .tl-phase.s3{color:#00ff88}
+        .tl-item h3{font-size:1rem;margin-bottom:8px}
+        .tl-checklist{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+        .tl-check{display:flex;align-items:center;gap:8px;font-size:.8rem;opacity:.85}
+        .tl-check svg{flex-shrink:0}
+
+        /* Stage cards row */
+        .stage-row{display:flex;gap:12px;margin:20px 0}
+        .stage-card{flex:1;border:1px solid #333;padding:20px;text-align:center;position:relative;overflow:hidden}
+        .stage-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px}
+        .stage-card.s1::after{background:var(--acc)} .stage-card.s2::after{background:var(--acc2)} .stage-card.s3::after{background:#00ff88}
+        .stage-card .sc-num{font-size:2.4rem;font-weight:bold;line-height:1;margin-bottom:4px}
+        .stage-card.s1 .sc-num{color:var(--acc)} .stage-card.s2 .sc-num{color:var(--acc2)} .stage-card.s3 .sc-num{color:#00ff88}
+        .stage-card .sc-label{font-size:.65rem;text-transform:uppercase;letter-spacing:1px;opacity:.5}
+
+        /* O2O visual */
+        .o2o-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+        .o2o-card{border:1px solid #333;padding:20px;display:flex;gap:14px;align-items:flex-start}
+        .o2o-card svg{flex-shrink:0;margin-top:2px}
+        .o2o-card h3{font-size:.95rem;margin-bottom:6px}
+        .o2o-card p{font-size:.85rem;opacity:.8;margin-bottom:0}
+
+        /* Flow diagram */
+        .flow-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;margin:20px 0}
+        .flow-node{padding:14px 20px;font-size:.75rem;text-transform:uppercase;letter-spacing:1px;text-align:center;border:1px solid var(--acc);color:var(--acc);min-width:100px}
+        .flow-arrow{opacity:.4;font-size:1.2rem}
+
+        .callout{border-left:3px solid var(--acc);padding:16px 20px;margin:16px 0;background:rgba(0,243,255,.03);font-size:.9rem}
+        .callout.green{border-left-color:#00ff88;background:rgba(0,255,136,.03)}
+
+        /* Conclusion metric */
+        .conclusion-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+        .con-card{border:1px solid #333;padding:20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
+        .con-card svg{margin-bottom:4px}
+        .con-card h3{font-size:.9rem;margin-bottom:0}
+        .con-card p{font-size:.8rem;opacity:.7;margin-bottom:0}
+
+        .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+        .tag{padding:4px 10px;font-size:.7rem;border-radius:4px;background:#111;border:1px solid var(--acc);color:var(--acc)}
+        footer{text-align:center;padding:40px;margin-top:50px;font-size:.8rem;opacity:.5}
+        @media(max-width:700px){.stage-row{flex-direction:column}.o2o-grid{grid-template-columns:1fr}.conclusion-grid{grid-template-columns:1fr}.flow-row{flex-direction:column}.flow-arrow{transform:rotate(90deg)}}
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="rednote_proposal.html" class="back">← BACK</a>
+        <div class="logo">REDNOTE <span class="accent">X</span> DLY AI</div>
+    </nav>
+    <div class="wrap">
+        <section class="hero">
+            <div class="num">05</div>
+            <h1>行动路径</h1>
+            <p class="sub">商业模式与生态位协同：三阶段落地路线图</p>
+        </section>
+
+        <!-- Stage overview cards -->
+        <div class="block">
+            <h2>// 三阶段总览</h2>
+            <div class="stage-row">
+                <div class="stage-card s1">
+                    <div class="sc-num">S1</div>
+                    <div class="sc-label">快速启动</div>
+                    <p style="font-size:.75rem;opacity:.6;margin:8px 0 0">话题 · KOL · 流量倾斜</p>
+                </div>
+                <div class="stage-card s2">
+                    <div class="sc-num">S2</div>
+                    <div class="sc-label">工具整合</div>
+                    <p style="font-size:.75rem;opacity:.6;margin:8px 0 0">API · 一键发布 · 规模化</p>
+                </div>
+                <div class="stage-card s3">
+                    <div class="sc-num">S3</div>
+                    <div class="sc-label">商业闭环</div>
+                    <p style="font-size:.75rem;opacity:.6;margin:8px 0 0">加速器 · 免佣 · 飞轮</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Timeline -->
+        <div class="block">
+            <h2>// 详细行动计划</h2>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="tl-dot active">
+                        <svg viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="2" fill="#050505"/></svg>
+                    </div>
+                    <div class="tl-phase">Stage 1 — 快速启动</div>
+                    <h3>建立"硅谷 AI 实战营"话题</h3>
+                    <p style="font-size:.85rem;opacity:.8">在小红书海外版设立话题，由 DLY AI 社区核心 KOL 发布系列 Building in Public 笔记，小红书提供初始去中心化流量倾斜。</p>
+                    <div class="tl-checklist">
+                        <div class="tl-check"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="12" rx="2" stroke="#00f3ff" stroke-width="1"/><path d="M4 7l2 2 4-4" stroke="#00f3ff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>核心 KOL 入驻，发布系列实战笔记</div>
+                        <div class="tl-check"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="12" rx="2" stroke="#00f3ff" stroke-width="1"/><path d="M4 7l2 2 4-4" stroke="#00f3ff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>去中心化流量倾斜支持</div>
+                        <div class="tl-check"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="12" rx="2" stroke="#00f3ff" stroke-width="1"/><path d="M4 7l2 2 4-4" stroke="#00f3ff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>建立 DLY AI 与小红书的合作框架</div>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-dot s2 active"></div>
+                    <div class="tl-phase s2">Stage 2 — 工具整合</div>
+                    <h3>开放 API，实现"一键发布"</h3>
+                    <p style="font-size:.85rem;opacity:.8">小红书开放部分 API 给 DLY AI，允许 Agent 一键发布符合平台规范的高审美笔记，解决硅谷工程师"不擅长运营社交媒体"的痛点。</p>
+                    <div class="tl-checklist">
+                        <div class="tl-check"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="12" rx="2" stroke="#bc13fe" stroke-width="1"/><path d="M4 7l2 2 4-4" stroke="#bc13fe" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>API 对接，Agent 一键发布</div>
+                        <div class="tl-check"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="12" rx="2" stroke="#bc13fe" stroke-width="1"/><path d="M4 7l2 2 4-4" stroke="#bc13fe" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>解决技术人群内容创作门槛</div>
+                        <div class="tl-check"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="12" rx="2" stroke="#bc13fe" stroke-width="1"/><path d="M4 7l2 2 4-4" stroke="#bc13fe" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>规模化内容生产能力上线</div>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-dot s3 active"></div>
+                    <div class="tl-phase s3">Stage 3 — 商业闭环</div>
+                    <h3>建立"一人公司"加速器</h3>
+                    <p style="font-size:.85rem;opacity:.8">联手打造全球创作者加速器，通过免佣计划和 SEO/GEO 优化，帮助硅谷 AI 博主在 RedNote 实现商业成功，形成口碑飞轮。</p>
+                    <div class="tl-checklist">
+                        <div class="tl-check"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="12" rx="2" stroke="#00ff88" stroke-width="1"/><path d="M4 7l2 2 4-4" stroke="#00ff88" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>百万免佣计划全面启动</div>
+                        <div class="tl-check"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="12" rx="2" stroke="#00ff88" stroke-width="1"/><path d="M4 7l2 2 4-4" stroke="#00ff88" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>SEO/GEO 优化驱动 AI 搜索流量</div>
+                        <div class="tl-check"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="12" rx="2" stroke="#00ff88" stroke-width="1"/><path d="M4 7l2 2 4-4" stroke="#00ff88" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>口碑效应形成良性增长飞轮</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- O2O Section -->
+        <div class="block">
+            <h2>// O2O 闭环转化</h2>
+            <p style="opacity:.7">硅谷线下社区凝聚力极强（TiE, AI Hackathons），O2O 闭环是核心增长杠杆。</p>
+
+            <div class="flow-row">
+                <div class="flow-node"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="vertical-align:middle;margin-right:4px"><circle cx="8" cy="8" r="6" stroke="#00f3ff" stroke-width="1"/><circle cx="8" cy="8" r="2" fill="#00f3ff"/></svg>线下活动</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">RFID / QR</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">实时笔记</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node" style="border-color:var(--acc2);color:var(--acc2)">二次传播</div>
+            </div>
+
+            <div class="o2o-grid">
+                <div class="o2o-card">
+                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="4" width="28" height="28" rx="4" stroke="#00f3ff" stroke-width="1.2"/><path d="M12 18h12" stroke="#00f3ff" stroke-width="1.5" stroke-linecap="round"/><path d="M18 12v12" stroke="#00f3ff" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="12" r="2" fill="#00f3ff" opacity=".4"/><circle cx="24" cy="24" r="2" fill="#00f3ff" opacity=".4"/></svg>
+                    <div>
+                        <h3>线下快闪活动</h3>
+                        <p>小红书冠名 DLY AI 主办的开发者活动，用户通过 RFID/QR 发布实时 Recap，触发线上二次曝光</p>
+                    </div>
+                </div>
+                <div class="o2o-card">
+                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M18 6l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" stroke="#bc13fe" stroke-width="1.2" stroke-linejoin="round"/></svg>
+                    <div>
+                        <h3>激励机制</h3>
+                        <p>鼓励参会者发布"技术种草"笔记，通过算法加权和 AI 插件奖励，快速形成舆论高地</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conclusion -->
+        <div class="block">
+            <h2>// 核心结论</h2>
+            <div class="conclusion-grid">
+                <div class="con-card">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="16" stroke="#00f3ff" stroke-width="1.2"/><path d="M14 20h12M20 14v12" stroke="#00f3ff" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    <h3 class="accent">DLY AI 提供</h3>
+                    <p>"内容生产力" + "社区土壤"</p>
+                </div>
+                <div class="con-card">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="16" stroke="#bc13fe" stroke-width="1.2"/><path d="M14 20l4 4 8-8" stroke="#bc13fe" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <h3 class="acc2">小红书提供</h3>
+                    <p>"流量分发" + "商业闭环"</p>
+                </div>
+            </div>
+            <div class="callout green">
+                <strong>战略定位：</strong>小红书不应复刻 TikTok 烧钱模式，而应基于 2026 技术趋势洞察，定位为<strong style="color:#00ff88">"AI Agent 时代的生产力社交引擎"</strong>。谁能最先构建"人机协同、价值驱动"的社区生态，谁就将赢得下一轮社交媒体的十年。
+            </div>
+            <div class="tags">
+                <span class="tag">QUICK START</span>
+                <span class="tag">API INTEGRATION</span>
+                <span class="tag">ACCELERATOR</span>
+                <span class="tag">O2O LOOP</span>
+            </div>
+        </div>
+    </div>
+    <footer><p>&copy; 2026 RedNote x DLY AI Co-Work Proposal. Strictly Confidential.</p></footer>
+</body>
+</html>

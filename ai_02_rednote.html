@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02. REDNOTE 核心优势 — REDNOTE STRATEGY</title>
+    <style>
+        :root{--bg:#050505;--text:#fff;--acc:#00f3ff;--acc2:#bc13fe;--font:'JetBrains Mono','Fira Code','Courier New',monospace;--card:rgba(10,20,10,0.9)}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:var(--bg);color:var(--text);font-family:var(--font);background-image:linear-gradient(rgba(0,255,65,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,65,.03) 1px,transparent 1px);background-size:20px 20px;min-height:100vh;overflow-x:hidden}
+        .accent{color:var(--acc)}
+        h1,h2,h3{text-transform:uppercase;letter-spacing:1px}
+        p{line-height:1.8;font-size:.95rem;margin-bottom:12px}
+        .nav{position:fixed;top:0;width:100%;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;z-index:1000;backdrop-filter:blur(8px);border-bottom:1px solid #222}
+        .logo{font-size:1.2rem;font-weight:bold;letter-spacing:2px}
+        .back{cursor:pointer;padding:10px 20px;font-size:.8rem;text-transform:uppercase;letter-spacing:2px;border-radius:50px;border:1px solid var(--acc);color:var(--acc);background:0 0;text-decoration:none;transition:.3s;font-family:var(--font)}
+        .back:hover{box-shadow:0 0 15px var(--acc);background:rgba(0,243,255,.1)}
+        .wrap{max-width:960px;margin:0 auto;padding:120px 30px 80px}
+        .hero{text-align:center;margin-bottom:50px}
+        .hero .num{font-size:6rem;opacity:.08;font-weight:bold;line-height:1}
+        .hero h1{font-size:2.6rem;line-height:1.2;margin-bottom:12px}
+        .hero .sub{opacity:.7;font-size:.95rem}
+        .block{border:1px solid #333;background:var(--card);box-shadow:4px 4px 0 #333;padding:32px;margin-bottom:24px}
+        .block h2{font-size:1.2rem;margin-bottom:16px;color:var(--acc)}
+
+        .stat-row{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0}
+        .stat{flex:1;min-width:120px;text-align:center;padding:20px 12px;border:1px solid #333}
+        .stat .n{font-size:2rem;font-weight:bold;color:var(--acc);line-height:1.1}
+        .stat .l{font-size:.7rem;text-transform:uppercase;letter-spacing:1px;opacity:.6;margin-top:6px}
+
+        .vs-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin:20px 0;align-items:stretch}
+        .vs-card{border:1px solid #333;padding:24px}
+        .vs-card h3{font-size:1rem;margin-bottom:14px;text-align:center}
+        .vs-divider{display:flex;align-items:center;justify-content:center;padding:0 16px;font-size:1.4rem;opacity:.3}
+        .vs-item{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:.85rem}
+        .vs-icon{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+        .tier-bar{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+        .tier-label{font-size:.8rem;min-width:80px;text-align:right;font-weight:bold}
+        .tier-track{flex:1;height:28px;border-radius:3px;background:#111;position:relative;overflow:hidden;display:flex;align-items:center}
+        .tier-fill{height:100%;border-radius:3px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:.7rem;font-weight:bold}
+        .tier-meta{font-size:.7rem;opacity:.5;min-width:100px;padding-left:8px}
+
+        .callout{border-left:3px solid var(--acc);padding:16px 20px;margin:16px 0;background:rgba(0,243,255,.03);font-size:.9rem}
+        .callout.purple{border-left-color:var(--acc2);background:rgba(188,19,254,.03)}
+        .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+        .tag{padding:4px 10px;font-size:.7rem;border-radius:4px;background:#111;border:1px solid var(--acc);color:var(--acc)}
+        footer{text-align:center;padding:40px;margin-top:50px;font-size:.8rem;opacity:.5}
+        @media(max-width:700px){.vs-grid{grid-template-columns:1fr}.vs-divider{padding:10px 0;transform:rotate(90deg)}.stat-row{flex-direction:column}}
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="rednote_proposal.html" class="back">← BACK</a>
+        <div class="logo">REDNOTE <span class="accent">X</span> DLY AI</div>
+    </nav>
+    <div class="wrap">
+        <section class="hero">
+            <div class="num">02</div>
+            <h1>REDNOTE 核心优势</h1>
+            <p class="sub">核心竞争力与差异化流量优势</p>
+        </section>
+
+        <div class="block">
+            <h2>// 定位</h2>
+            <div class="stat-row">
+                <div class="stat"><div class="n" style="font-size:1.4rem">UTILITY</div><div class="l">实用主义驱动</div></div>
+                <div class="stat"><div class="n" style="font-size:1.4rem">DECENTRAL</div><div class="l">去中心化分发</div></div>
+                <div class="stat"><div class="n" style="font-size:1.4rem">GEO</div><div class="l">AI 搜索优化</div></div>
+            </div>
+            <p style="opacity:.7;font-size:.85rem;text-align:center;margin-top:8px">在流量成本昂贵的 2025-2026 年，必须发挥独特基因而非复刻烧钱模式。</p>
+        </div>
+
+        <div class="block">
+            <h2>// 2.1 Instagram vs RedNote</h2>
+            <div class="vs-grid">
+                <div class="vs-card">
+                    <h3 style="opacity:.5">Instagram</h3>
+                    <div class="vs-item"><div class="vs-icon" style="background:#666"></div>视觉"氛围感"</div>
+                    <div class="vs-item"><div class="vs-icon" style="background:#666"></div>娱乐性内容为主</div>
+                    <div class="vs-item"><div class="vs-icon" style="background:#666"></div>KOL 粉丝驱动</div>
+                    <div class="vs-item"><div class="vs-icon" style="background:#666"></div>病毒式传播</div>
+                </div>
+                <div class="vs-divider">VS</div>
+                <div class="vs-card" style="border-color:var(--acc)">
+                    <h3 class="accent">RedNote</h3>
+                    <div class="vs-item"><div class="vs-icon" style="background:var(--acc)"></div>"行动建议"+ 干货</div>
+                    <div class="vs-item"><div class="vs-icon" style="background:var(--acc)"></div>实用主义内容核心</div>
+                    <div class="vs-item"><div class="vs-icon" style="background:var(--acc)"></div>内容质量驱动分发</div>
+                    <div class="vs-item"><div class="vs-icon" style="background:var(--acc)"></div>搜索驱动社交</div>
+                </div>
+            </div>
+            <div class="callout">
+                <strong>AI 时代 SEO/GEO 价值：</strong>第一人称叙述 + 产品拆解 + 比较指南 = LLM 最偏好的高可信数据源。
+            </div>
+        </div>
+
+        <div class="block">
+            <h2>// 2.2 流量池分层机制</h2>
+            <p>算法不以粉丝量为唯一权重，而是基于内容质量与"收藏"行为。</p>
+            <div style="margin:20px 0">
+                <div class="tier-bar">
+                    <span class="tier-label accent">L1–L2</span>
+                    <div class="tier-track"><div class="tier-fill" style="width:20%;background:linear-gradient(90deg,#00f3ff,#0088aa)">初始</div></div>
+                    <span class="tier-meta">百 ~ 千次曝光</span>
+                </div>
+                <div class="tier-bar">
+                    <span class="tier-label accent">L3–L5</span>
+                    <div class="tier-track"><div class="tier-fill" style="width:55%;background:linear-gradient(90deg,#00f3ff,#00ccff)">增长</div></div>
+                    <span class="tier-meta">万 ~ 十万次</span>
+                </div>
+                <div class="tier-bar">
+                    <span class="tier-label accent">L6–L8</span>
+                    <div class="tier-track"><div class="tier-fill" style="width:90%;background:linear-gradient(90deg,#00f3ff,#bc13fe)">病毒</div></div>
+                    <span class="tier-meta">百万次以上</span>
+                </div>
+            </div>
+            <div style="display:flex;gap:12px;margin:16px 0;flex-wrap:wrap">
+                <div style="flex:1;min-width:140px;border:1px solid #333;padding:14px;text-align:center">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 6l2 4 5 1-4 3 1 5-4-2-4 2 1-5-4-3 5-1z" stroke="#00f3ff" stroke-width="1.2"/></svg>
+                    <div style="font-size:.75rem;margin-top:4px">收藏率</div>
+                </div>
+                <div style="flex:1;min-width:140px;border:1px solid #333;padding:14px;text-align:center">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 14h4l3-6 3 12 3-6h3" stroke="#00f3ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <div style="font-size:.75rem;margin-top:4px">完读率</div>
+                </div>
+                <div style="flex:1;min-width:140px;border:1px solid #333;padding:14px;text-align:center">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" stroke="#00f3ff" stroke-width="1.2"/><path d="M10 14l3 3 5-6" stroke="#00f3ff" stroke-width="1.5"/></svg>
+                    <div style="font-size:.75rem;margin-top:4px">搜索热度</div>
+                </div>
+            </div>
+            <div class="callout purple">
+                <strong>关键洞察：</strong>0 粉丝账号也能进入高流量池——对硅谷"一人公司"创业者是极大利好。
+            </div>
+            <div class="tags">
+                <span class="tag">UTILITY-LED</span>
+                <span class="tag">GEO OPTIMIZATION</span>
+                <span class="tag">DECENTRALIZED</span>
+                <span class="tag">LLM-FRIENDLY</span>
+            </div>
+        </div>
+    </div>
+    <footer><p>&copy; 2026 RedNote x DLY AI Co-Work Proposal. Strictly Confidential.</p></footer>
+</body>
+</html>

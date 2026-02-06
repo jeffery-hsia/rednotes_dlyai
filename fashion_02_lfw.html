@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02. LFW 伦敦时装周 — REDNOTE STRATEGY</title>
+    <style>
+        :root {
+            --fash-bg: #f8f8f8;
+            --fash-text: #1a1a1a;
+            --fash-accent: #ff2e63;
+            --fash-font: 'Didot', 'Bodoni MT', 'Playfair Display', serif;
+            --fash-sec-font: 'Helvetica Neue', Arial, sans-serif;
+            --fash-card-bg: #ffffff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--fash-bg); color: var(--fash-text); font-family: var(--fash-sec-font); min-height: 100vh; overflow-x: hidden; }
+        .accent { color: var(--fash-accent); }
+        h1, h2, h3 { font-family: var(--fash-font); font-style: italic; }
+        p { line-height: 1.8; font-size: 0.95rem; margin-bottom: 15px; }
+
+        .nav-header { position: fixed; top: 0; width: 100%; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(8px); }
+        .logo { font-size: 1.2rem; font-weight: bold; letter-spacing: 2px; font-family: var(--fash-sec-font); }
+        .back-btn { cursor: pointer; padding: 10px 20px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; background: #000; color: #fff; border: none; text-decoration: none; transition: 0.3s; font-family: var(--fash-sec-font); }
+        .back-btn:hover { background: var(--fash-accent); }
+
+        .content { max-width: 960px; margin: 0 auto; padding: 120px 30px 80px; }
+        .hero { text-align: center; margin-bottom: 60px; }
+        .hero .section-label { font-family: var(--fash-sec-font); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 4px; color: var(--fash-accent); margin-bottom: 16px; }
+        .hero h1 { font-size: 3.2rem; line-height: 1.15; margin-bottom: 16px; }
+        .hero .subtitle { opacity: 0.6; font-size: 1rem; max-width: 600px; margin: 0 auto; }
+
+        .section-block { background: var(--fash-card-bg); box-shadow: 0 30px 60px rgba(0,0,0,0.08); border-radius: 2px; padding: 40px; margin-bottom: 30px; }
+        .section-block h2 { font-size: 1.6rem; margin-bottom: 20px; }
+
+        .editorial-quote { font-family: var(--fash-font); font-style: italic; font-size: 1.5rem; line-height: 1.5; padding: 30px 40px; margin: 30px 0; border-left: 3px solid var(--fash-accent); color: #333; }
+
+        /* Date badge */
+        .date-badge { display: inline-flex; align-items: center; gap: 10px; background: var(--fash-accent); color: #fff; padding: 10px 24px; font-family: var(--fash-sec-font); font-size: 0.8rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
+        .date-badge svg { flex-shrink: 0; }
+
+        /* Designer chips */
+        .designer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 24px 0; }
+        .designer-card { text-align: center; padding: 28px 16px; border: 1px solid #eee; position: relative; overflow: hidden; transition: .3s; }
+        .designer-card:hover { border-color: var(--fash-accent); transform: translateY(-2px); }
+        .designer-avatar { width: 56px; height: 56px; border-radius: 50%; background: #f4f4f4; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-family: var(--fash-font); font-style: italic; font-size: 1.2rem; color: var(--fash-accent); }
+        .designer-card .designer-name { font-family: var(--fash-font); font-style: italic; font-size: 1.05rem; margin-bottom: 6px; }
+        .designer-card .designer-tag { font-size: 0.7rem; color: var(--fash-accent); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Collab grid with icons */
+        .collab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 24px 0; }
+        .collab-card { padding: 24px; border: 1px solid #eee; display: flex; gap: 16px; align-items: flex-start; transition: .3s; }
+        .collab-card:hover { border-color: var(--fash-accent); }
+        .collab-card svg { flex-shrink: 0; margin-top: 2px; }
+        .collab-card h4 { font-family: var(--fash-sec-font); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .collab-card p { font-size: 0.85rem; margin-bottom: 0; }
+
+        .highlight-strip { background: #000; color: #fff; padding: 30px 40px; margin: 30px 0; display: flex; gap: 24px; align-items: center; }
+        .highlight-strip svg { flex-shrink: 0; }
+        .highlight-strip h3 { color: #fff; margin-bottom: 10px; }
+
+        /* Event timeline */
+        .event-flow { display: flex; gap: 0; margin: 24px 0; }
+        .event-step { flex: 1; padding: 20px; text-align: center; border: 1px solid #eee; border-right: none; position: relative; }
+        .event-step:last-child { border-right: 1px solid #eee; }
+        .event-step::after { content: '→'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); font-size: 1rem; color: var(--fash-accent); z-index: 1; }
+        .event-step:last-child::after { display: none; }
+        .event-step .step-icon { margin-bottom: 10px; }
+        .event-step h4 { font-family: var(--fash-sec-font); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; font-weight: 600; }
+        .event-step p { font-size: 0.8rem; margin-bottom: 0; opacity: 0.7; }
+
+        .tag-container { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+        .tag { padding: 4px 10px; font-size: 0.7rem; background: #eee; color: #000; font-family: var(--fash-sec-font); font-weight: 600; letter-spacing: 1px; }
+
+        footer { text-align: center; padding: 40px; margin-top: 50px; font-size: 0.8rem; opacity: 0.5; }
+
+        @media (max-width: 700px) { .designer-grid { grid-template-columns: 1fr 1fr; } .collab-grid { grid-template-columns: 1fr; } .event-flow { flex-direction: column; } .event-step { border-right: 1px solid #eee; border-bottom: none; } .event-step:last-child { border-bottom: 1px solid #eee; } .event-step::after { display: none; } .hero h1 { font-size: 2.2rem; } .highlight-strip { flex-direction: column; } }
+    </style>
+</head>
+<body>
+    <nav class="nav-header">
+        <a href="rednote_proposal.html?mode=fashion" class="back-btn">← BACK</a>
+        <div class="logo">REDNOTE <span class="accent">X</span> DLY AI</div>
+    </nav>
+
+    <div class="content">
+        <section class="hero">
+            <div class="section-label">Proposed by Dr. Jeffery Hsia // LFW</div>
+            <h1>LFW 伦敦时装周：<br>亚洲叙事</h1>
+            <p class="subtitle">伦敦是独立设计师的摇篮，也是中国设计力量的全球展示舞台</p>
+        </section>
+
+        <div class="section-block">
+            <div class="date-badge">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="#fff" stroke-width="1.2"/><path d="M5 2v2M11 2v2M2 7h12" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></svg>
+                FEB 19–23, 2026
+            </div>
+            <h2>伦敦时装周的亚洲叙事</h2>
+            <p>LFW 已成为中国及亚洲设计师最密集的展示舞台。伦敦作为独立设计师的摇篮，北美（NYC/LA）作为现代商业与街头文化的中心，是 RedNote 建立品牌调性的主战场。</p>
+        </div>
+
+        <div class="section-block">
+            <h2>"亚洲设计在伦敦" — 官方话题</h2>
+            <p>联动英国时装协会（BFC）及小红书宠儿设计师，在 LFW 期间发起实时秀场笔记大赛。</p>
+
+            <div class="designer-grid">
+                <div class="designer-card">
+                    <div class="designer-avatar">SF</div>
+                    <div class="designer-name">Susan Fang</div>
+                    <div class="designer-tag">XHS Featured</div>
+                </div>
+                <div class="designer-card">
+                    <div class="designer-avatar">CL</div>
+                    <div class="designer-name">Chet Lo</div>
+                    <div class="designer-tag">XHS Featured</div>
+                </div>
+                <div class="designer-card">
+                    <div class="designer-avatar">HZ</div>
+                    <div class="designer-name">Huishan Zhang</div>
+                    <div class="designer-tag">XHS Featured</div>
+                </div>
+                <div class="designer-card">
+                    <div class="designer-avatar">YW</div>
+                    <div class="designer-name">Yuhan Wang</div>
+                    <div class="designer-tag">XHS Featured</div>
+                </div>
+            </div>
+
+            <div class="editorial-quote">
+                "将 Building a Brand 的全过程在平台上公开化展示——从草图到秀场的完整故事。"
+            </div>
+        </div>
+
+        <div class="section-block">
+            <h2>合作要点</h2>
+            <div class="collab-grid">
+                <div class="collab-card">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="4" width="24" height="24" rx="4" stroke="#ff2e63" stroke-width="1.2"/><path d="M11 16h10M16 11v10" stroke="#ff2e63" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    <div>
+                        <h4>设计师矩阵</h4>
+                        <p>联动 BFC 及 Susan Fang, Chet Lo 等设计师，LFW 期间发布实时秀场笔记大赛。</p>
+                    </div>
+                </div>
+                <div class="collab-card">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M6 28V8a2 2 0 012-2h16a2 2 0 012 2v20" stroke="#ff2e63" stroke-width="1.2"/><path d="M10 12h12M10 16h8M10 20h6" stroke="#ff2e63" stroke-width="1"/></svg>
+                    <div>
+                        <h4>Building a Brand</h4>
+                        <p>利用去中心化算法扶持新锐中国设计师，公开展示品牌成长全过程。</p>
+                    </div>
+                </div>
+                <div class="collab-card">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 4l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" stroke="#ff2e63" stroke-width="1.2" stroke-linejoin="round"/></svg>
+                    <div>
+                        <h4>独立设计师"成名计划"</h4>
+                        <p>记录设计师从草图到秀场的全过程，打造引人入胜的内容系列。</p>
+                    </div>
+                </div>
+                <div class="collab-card">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="12" stroke="#ff2e63" stroke-width="1.2"/><path d="M10 16l4 4 8-8" stroke="#ff2e63" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <div>
+                        <h4>全球首秀</h4>
+                        <p>Feng Chen Wang x Converse 等联名款的独家测评与首发。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-strip">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="18" stroke="#ff2e63" stroke-width="1.5"/><path d="M18 24l4 4 8-8" stroke="#ff2e63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div>
+                <h3 style="font-family:var(--fash-font);font-style:italic">"RedNote 伦敦时尚之夜"</h3>
+                <p style="margin-bottom:0">2026 年 2 月 LFW 期间，联合知名 DJ 厂牌与中国设计师举办线下派对。入场嘉宾通过 RedNote 发布 Recap，实现 O2O 爆发式传播。</p>
+            </div>
+        </div>
+
+        <div class="section-block">
+            <h2>O2O 传播路径</h2>
+            <div class="event-flow">
+                <div class="event-step">
+                    <div class="step-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" stroke="#ff2e63" stroke-width="1.2"/><path d="M14 9v5l3 3" stroke="#ff2e63" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+                    <h4>线下派对</h4>
+                    <p>DJ + 设计师联合活动</p>
+                </div>
+                <div class="event-step">
+                    <div class="step-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="6" y="4" width="16" height="20" rx="2" stroke="#ff2e63" stroke-width="1.2"/><circle cx="14" cy="20" r="1.5" fill="#ff2e63"/></svg></div>
+                    <h4>RedNote 发布</h4>
+                    <p>视频 Recap 笔记</p>
+                </div>
+                <div class="event-step">
+                    <div class="step-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M7 14l7-7 7 7M7 21l7-7 7 7" stroke="#ff2e63" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                    <h4>二次传播</h4>
+                    <p>算法加权爆发</p>
+                </div>
+                <div class="event-step">
+                    <div class="step-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" stroke="#ff2e63" stroke-width="1.2"/><circle cx="14" cy="14" r="4" stroke="#ff2e63" stroke-width="1"/><circle cx="14" cy="14" r="1" fill="#ff2e63"/></svg></div>
+                    <h4>精英入驻</h4>
+                    <p>时尚 KOL 沉淀</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-block">
+            <h2>"品牌大使"矩阵</h2>
+            <p>邀请具备国际声誉的华裔及亚裔名流在 RedNote 分享独家时尚见解，吸引时尚精英入驻。</p>
+            <div class="tag-container">
+                <span class="tag">LFW 2026</span>
+                <span class="tag">BFC</span>
+                <span class="tag">ASIAN DESIGN</span>
+                <span class="tag">BUILDING A BRAND</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 RedNote x DLY AI Co-Work Proposal. Strictly Confidential.</p>
+    </footer>
+</body>
+</html>

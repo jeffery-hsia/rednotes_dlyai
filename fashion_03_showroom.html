@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03. Showroom & 买手网络 — REDNOTE STRATEGY</title>
+    <style>
+        :root {
+            --fash-bg: #f8f8f8;
+            --fash-text: #1a1a1a;
+            --fash-accent: #ff2e63;
+            --fash-font: 'Didot', 'Bodoni MT', 'Playfair Display', serif;
+            --fash-sec-font: 'Helvetica Neue', Arial, sans-serif;
+            --fash-card-bg: #ffffff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--fash-bg); color: var(--fash-text); font-family: var(--fash-sec-font); min-height: 100vh; overflow-x: hidden; }
+        .accent { color: var(--fash-accent); }
+        h1, h2, h3 { font-family: var(--fash-font); font-style: italic; }
+        p { line-height: 1.8; font-size: 0.95rem; margin-bottom: 15px; }
+
+        .nav-header { position: fixed; top: 0; width: 100%; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(8px); }
+        .logo { font-size: 1.2rem; font-weight: bold; letter-spacing: 2px; font-family: var(--fash-sec-font); }
+        .back-btn { cursor: pointer; padding: 10px 20px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; background: #000; color: #fff; border: none; text-decoration: none; transition: 0.3s; font-family: var(--fash-sec-font); }
+        .back-btn:hover { background: var(--fash-accent); }
+
+        .content { max-width: 960px; margin: 0 auto; padding: 120px 30px 80px; }
+        .hero { text-align: center; margin-bottom: 60px; }
+        .hero .section-label { font-family: var(--fash-sec-font); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 4px; color: var(--fash-accent); margin-bottom: 16px; }
+        .hero h1 { font-size: 3.2rem; line-height: 1.15; margin-bottom: 16px; }
+        .hero .subtitle { opacity: 0.6; font-size: 1rem; max-width: 600px; margin: 0 auto; }
+
+        .section-block { background: var(--fash-card-bg); box-shadow: 0 30px 60px rgba(0,0,0,0.08); border-radius: 2px; padding: 40px; margin-bottom: 30px; }
+        .section-block h2 { font-size: 1.6rem; margin-bottom: 20px; }
+
+        .editorial-quote { font-family: var(--fash-font); font-style: italic; font-size: 1.5rem; line-height: 1.5; padding: 30px 40px; margin: 30px 0; border-left: 3px solid var(--fash-accent); color: #333; }
+
+        /* Location cards with map pin */
+        .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 24px 0; }
+        .location-card { border: 1px solid #eee; padding: 30px; position: relative; transition: .3s; }
+        .location-card:hover { border-color: var(--fash-accent); transform: translateY(-2px); }
+        .loc-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+        .loc-pin { width: 36px; height: 36px; border-radius: 50%; background: #fff0f3; display: flex; align-items: center; justify-content: center; }
+        .city-label { font-family: var(--fash-sec-font); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: var(--fash-accent); }
+        .location-card h3 { font-size: 1.2rem; margin-bottom: 12px; }
+
+        /* Process steps with visual icons */
+        .process-steps { display: flex; gap: 0; margin: 30px 0; }
+        .process-step { flex: 1; padding: 24px; text-align: center; border: 1px solid #eee; border-right: none; position: relative; }
+        .process-step:last-child { border-right: 1px solid #eee; }
+        .process-step::after { content: '→'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); font-size: 1rem; color: var(--fash-accent); z-index: 1; }
+        .process-step:last-child::after { display: none; }
+        .step-icon { width: 48px; height: 48px; border-radius: 50%; background: #fff0f3; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
+        .process-step .step-num { font-family: var(--fash-font); font-style: italic; font-size: 1.6rem; color: var(--fash-accent); margin-bottom: 4px; }
+        .process-step h4 { font-family: var(--fash-sec-font); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 600; }
+        .process-step p { font-size: 0.8rem; margin-bottom: 0; opacity: 0.7; }
+
+        .highlight-strip { background: #000; color: #fff; padding: 30px 40px; margin: 30px 0; display: flex; gap: 24px; align-items: center; }
+        .highlight-strip svg { flex-shrink: 0; }
+        .highlight-strip h3 { color: #fff; margin-bottom: 10px; }
+
+        /* Strategy cards */
+        .strategy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 24px 0; }
+        .strategy-card { border: 1px solid #eee; padding: 24px; text-align: center; transition: .3s; }
+        .strategy-card:hover { border-color: var(--fash-accent); }
+        .strategy-card svg { margin-bottom: 12px; }
+        .strategy-card h4 { font-family: var(--fash-sec-font); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .strategy-card p { font-size: 0.85rem; margin-bottom: 0; opacity: 0.7; }
+
+        .tag-container { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+        .tag { padding: 4px 10px; font-size: 0.7rem; background: #eee; color: #000; font-family: var(--fash-sec-font); font-weight: 600; letter-spacing: 1px; }
+
+        footer { text-align: center; padding: 40px; margin-top: 50px; font-size: 0.8rem; opacity: 0.5; }
+
+        @media (max-width: 700px) { .location-grid { grid-template-columns: 1fr; } .process-steps { flex-direction: column; } .process-step { border-right: 1px solid #eee; border-bottom: none; } .process-step:last-child { border-bottom: 1px solid #eee; } .process-step::after { display: none; } .strategy-grid { grid-template-columns: 1fr; } .hero h1 { font-size: 2.2rem; } .highlight-strip { flex-direction: column; } }
+    </style>
+</head>
+<body>
+    <nav class="nav-header">
+        <a href="rednote_proposal.html?mode=fashion" class="back-btn">← BACK</a>
+        <div class="logo">REDNOTE <span class="accent">X</span> DLY AI</div>
+    </nav>
+
+    <div class="content">
+        <section class="hero">
+            <div class="section-label">Proposed by Dr. Jeffery Hsia // B2B</div>
+            <h1>Showroom &<br>买手网络</h1>
+            <p class="subtitle">渗透 NYC/LA 核心时尚圈，连接商业展厅与全球买手</p>
+        </section>
+
+        <div class="section-block">
+            <h2>伦敦与北美时尚圈层的深度渗透</h2>
+            <p>伦敦作为独立设计师的摇篮，北美（NYC/LA）作为现代商业与街头文化的中心，是 RedNote 建立品牌调性的主战场。</p>
+            <div class="editorial-quote">
+                "让买手和博主能够通过平台直接搜索到最新的选品系列。"
+            </div>
+        </div>
+
+        <div class="section-block">
+            <h2>核心 Showroom 资源</h2>
+            <p>利用纽约和洛杉矶的当代展厅及买手店资源，建立 RedNote 品牌矩阵。</p>
+
+            <div class="location-grid">
+                <div class="location-card">
+                    <div class="loc-header">
+                        <div class="loc-pin">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2C6.24 2 4 4.24 4 7c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z" fill="#ff2e63"/><circle cx="9" cy="7" r="2" fill="#fff"/></svg>
+                        </div>
+                        <div class="city-label">LOS ANGELES</div>
+                    </div>
+                    <h3>California Market Center</h3>
+                    <p>加州时尚区核心商业展厅，连接设计师与全球买手的关键枢纽。设立 RedNote 专属快闪站。</p>
+                </div>
+                <div class="location-card">
+                    <div class="loc-header">
+                        <div class="loc-pin">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2C6.24 2 4 4.24 4 7c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5z" fill="#ff2e63"/><circle cx="9" cy="7" r="2" fill="#fff"/></svg>
+                        </div>
+                        <div class="city-label">LOS ANGELES</div>
+                    </div>
+                    <h3>Cooper Design Space</h3>
+                    <p>洛杉矶时尚区的当代设计展厅，汇集新锐设计师品牌。帮助北美 B2B 展厅建立 RedNote 矩阵。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-block">
+            <h2>OOTD 线下打卡方案</h2>
+            <p>在加利福尼亚时尚区等关键节点设立 RedNote 专属快闪站。</p>
+
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#ff2e63" stroke-width="1.2"/><path d="M8 12h8M12 8v8" stroke="#ff2e63" stroke-width="1" stroke-linecap="round"/></svg>
+                    </div>
+                    <div class="step-num">01</div>
+                    <h4>进店体验</h4>
+                    <p>KOC 进入快闪站试穿</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" stroke="#ff2e63" stroke-width="1.2"/><circle cx="12" cy="17" r="1.5" fill="#ff2e63"/></svg>
+                    </div>
+                    <div class="step-num">02</div>
+                    <h4>内容创作</h4>
+                    <p>拍摄 OOTD 真实笔记</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M7 12l7-7 7 7M7 19l7-7 7 7" stroke="#ff2e63" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <div class="step-num">03</div>
+                    <h4>平台发布</h4>
+                    <p>RedNote 一键分享</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#ff2e63" stroke-width="1.2"/><path d="M8 12l3 3 5-5" stroke="#ff2e63" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <div class="step-num">04</div>
+                    <h4>买手对接</h4>
+                    <p>B2B 选品直接搜索</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-strip">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="6" width="36" height="36" rx="4" stroke="#ff2e63" stroke-width="1.5"/><path d="M16 24h16M24 16v16" stroke="#ff2e63" stroke-width="1.5" stroke-linecap="round"/><circle cx="16" cy="16" r="3" stroke="#ff2e63" stroke-width="1" opacity=".5"/><circle cx="32" cy="32" r="3" stroke="#ff2e63" stroke-width="1" opacity=".5"/></svg>
+            <div>
+                <h3 style="font-family:var(--fash-font);font-style:italic">Showroom 数字化转型</h3>
+                <p style="margin-bottom:0">帮助北美 B2B 展厅在 RedNote 建立品牌矩阵，让买手和博主通过平台直接搜索最新选品系列。实现从传统展厅到数字化社交商务的全面升级。</p>
+            </div>
+        </div>
+
+        <div class="section-block">
+            <h2>"品牌大使"策略</h2>
+            <p>寻找具备国际声誉的华裔及亚裔名流，在 RedNote 分享独家时尚见解。</p>
+
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="12" r="6" stroke="#ff2e63" stroke-width="1.2"/><path d="M8 30c0-5.5 4.5-10 10-10s10 4.5 10 10" stroke="#ff2e63" stroke-width="1.2"/></svg>
+                    <h4>KOC 进店试穿</h4>
+                    <p>邀请本地 KOC 进入合作展厅，分享真实体验笔记</p>
+                </div>
+                <div class="strategy-card">
+                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="6" y="6" width="24" height="24" rx="3" stroke="#ff2e63" stroke-width="1.2"/><path d="M12 14h12M12 18h10M12 22h8" stroke="#ff2e63" stroke-width="1"/></svg>
+                    <h4>数字化展厅</h4>
+                    <p>帮助北美展厅建立 RedNote 矩阵，让买手搜索最新选品</p>
+                </div>
+                <div class="strategy-card">
+                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M18 6l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" stroke="#ff2e63" stroke-width="1.2" stroke-linejoin="round"/></svg>
+                    <h4>品牌大使</h4>
+                    <p>寻找具影响力的海外版时尚大使，分享独家见解</p>
+                </div>
+            </div>
+
+            <div class="tag-container">
+                <span class="tag">BUYER ECONOMY</span>
+                <span class="tag">DIGITAL SHOWROOM</span>
+                <span class="tag">OOTD</span>
+                <span class="tag">KOC NETWORK</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 RedNote x DLY AI Co-Work Proposal. Strictly Confidential.</p>
+    </footer>
+</body>
+</html>

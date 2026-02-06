@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01. Sound & Style — REDNOTE STRATEGY</title>
+    <style>
+        :root {
+            --fash-bg: #f8f8f8;
+            --fash-text: #1a1a1a;
+            --fash-accent: #ff2e63;
+            --fash-font: 'Didot', 'Bodoni MT', 'Playfair Display', serif;
+            --fash-sec-font: 'Helvetica Neue', Arial, sans-serif;
+            --fash-card-bg: #ffffff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--fash-bg); color: var(--fash-text); font-family: var(--fash-sec-font); min-height: 100vh; overflow-x: hidden; }
+        .accent { color: var(--fash-accent); }
+        h1, h2, h3 { font-family: var(--fash-font); font-style: italic; }
+        p { line-height: 1.8; font-size: 0.95rem; margin-bottom: 15px; }
+
+        .nav-header { position: fixed; top: 0; width: 100%; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(8px); }
+        .logo { font-size: 1.2rem; font-weight: bold; letter-spacing: 2px; font-family: var(--fash-sec-font); }
+        .back-btn { cursor: pointer; padding: 10px 20px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; background: #000; color: #fff; border: none; text-decoration: none; transition: 0.3s; font-family: var(--fash-sec-font); }
+        .back-btn:hover { background: var(--fash-accent); }
+
+        .content { max-width: 960px; margin: 0 auto; padding: 120px 30px 80px; }
+        .hero { text-align: center; margin-bottom: 60px; }
+        .hero .section-label { font-family: var(--fash-sec-font); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 4px; color: var(--fash-accent); margin-bottom: 16px; }
+        .hero h1 { font-size: 3.2rem; line-height: 1.15; margin-bottom: 16px; }
+        .hero .subtitle { opacity: 0.6; font-size: 1rem; max-width: 600px; margin: 0 auto; }
+
+        .section-block { background: var(--fash-card-bg); box-shadow: 0 30px 60px rgba(0,0,0,0.08); border-radius: 2px; padding: 40px; margin-bottom: 30px; }
+        .section-block h2 { font-size: 1.6rem; margin-bottom: 20px; }
+
+        .editorial-quote { font-family: var(--fash-font); font-style: italic; font-size: 1.5rem; line-height: 1.5; padding: 30px 40px; margin: 30px 0; border-left: 3px solid var(--fash-accent); color: #333; }
+
+        /* Brand cards with visual icons */
+        .brand-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 24px 0; }
+        .brand-card { padding: 28px; border: 1px solid #eee; position: relative; overflow: hidden; transition: .3s; }
+        .brand-card:hover { border-color: var(--fash-accent); }
+        .brand-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--fash-accent); transform: scaleX(0); transition: .3s; }
+        .brand-card:hover::after { transform: scaleX(1); }
+        .brand-icon { width: 48px; height: 48px; border-radius: 50%; background: #f4f4f4; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+        .brand-card h4 { font-family: var(--fash-font); font-style: italic; font-size: 1.1rem; margin-bottom: 4px; }
+        .brand-card .brand-origin { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--fash-accent); margin-bottom: 12px; }
+        .brand-card p { font-size: 0.85rem; margin-bottom: 0; }
+
+        /* Stat row */
+        .stat-row { display: flex; gap: 16px; margin: 24px 0; }
+        .stat-item { flex: 1; text-align: center; padding: 24px 16px; border: 1px solid #eee; }
+        .stat-item .stat-n { font-family: var(--fash-font); font-style: italic; font-size: 2.2rem; color: var(--fash-accent); line-height: 1; margin-bottom: 6px; }
+        .stat-item .stat-l { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.5; }
+
+        /* Collab grid */
+        .collab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 24px 0; }
+        .collab-card { padding: 24px; border: 1px solid #eee; display: flex; gap: 16px; align-items: flex-start; }
+        .collab-card svg { flex-shrink: 0; margin-top: 2px; }
+        .collab-card h4 { font-family: var(--fash-sec-font); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .collab-card p { font-size: 0.85rem; margin-bottom: 0; }
+
+        /* Data table */
+        .data-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; }
+        .data-table th, .data-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid #eee; }
+        .data-table th { font-family: var(--fash-sec-font); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--fash-accent); }
+        .data-table tr:hover td { background: rgba(255,46,99,.03); }
+
+        .highlight-strip { background: #000; color: #fff; padding: 30px 40px; margin: 30px 0; }
+        .highlight-strip h3 { color: #fff; margin-bottom: 10px; }
+
+        /* Merch visual bar */
+        .merch-bar { display: flex; height: 28px; border-radius: 14px; overflow: hidden; margin: 16px 0; }
+        .merch-fill { display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600; color: #fff; }
+        .merch-labels { display: flex; justify-content: space-between; font-size: 0.7rem; opacity: 0.5; margin-top: 4px; }
+
+        .tag-container { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+        .tag { padding: 4px 10px; font-size: 0.7rem; background: #eee; color: #000; font-family: var(--fash-sec-font); font-weight: 600; letter-spacing: 1px; }
+
+        footer { text-align: center; padding: 40px; margin-top: 50px; font-size: 0.8rem; opacity: 0.5; }
+
+        @media (max-width: 700px) { .brand-grid { grid-template-columns: 1fr; } .collab-grid { grid-template-columns: 1fr; } .stat-row { flex-direction: column; } .hero h1 { font-size: 2.2rem; } }
+    </style>
+</head>
+<body>
+    <nav class="nav-header">
+        <a href="rednote_proposal.html?mode=fashion" class="back-btn">← BACK</a>
+        <div class="logo">REDNOTE <span class="accent">X</span> DLY AI</div>
+    </nav>
+
+    <div class="content">
+        <section class="hero">
+            <div class="section-label">Proposed by Dr. Jeffery Hsia // MUSIC</div>
+            <h1>Sound & Style:<br>顶级厂牌联动</h1>
+            <p class="subtitle">全球顶级 DJ 厂牌与音乐现场的"跨界种草"</p>
+        </section>
+
+        <div class="section-block">
+            <h2>音乐是跨越国界的语言</h2>
+            <p>具备极强视觉属性和周边文化的顶级 DJ 厂牌，是吸引 Z 世代和精英群体的核心入口。</p>
+            <div class="editorial-quote">
+                "用音乐厂牌带氛围，用时尚圈层定格调，用出海设计师造爆点。"
+            </div>
+            <div class="stat-row">
+                <div class="stat-item">
+                    <div class="stat-n">200+</div>
+                    <div class="stat-l">全球演出城市</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-n">60-70%</div>
+                    <div class="stat-l">周边收入占比</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-n">Gen Z</div>
+                    <div class="stat-l">核心目标人群</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-block">
+            <h2>1.1 顶级厂牌联动</h2>
+            <p>从"汗水盒"到"数字笔记"——将线下狂欢转化为线上氛围感内容。</p>
+
+            <div class="brand-grid">
+                <div class="brand-card">
+                    <div class="brand-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#ff2e63" stroke-width="1.5"/><circle cx="12" cy="12" r="3" stroke="#ff2e63" stroke-width="1.2"/><path d="M12 3v6M12 15v6" stroke="#ff2e63" stroke-width="1"/></svg>
+                    </div>
+                    <h4>Boiler Room</h4>
+                    <div class="brand-origin">London · Global</div>
+                    <p>全球现场音乐品牌，200+ 城市独家 Recap。将"汗水盒"线下狂欢转化为"氛围感笔记"。</p>
+                </div>
+                <div class="brand-card">
+                    <div class="brand-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8" stroke="#ff2e63" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="12" r="3" fill="#ff2e63"/></svg>
+                    </div>
+                    <h4>Soulection</h4>
+                    <div class="brand-origin">Los Angeles</div>
+                    <p>LA 灵魂音乐厂牌，60-70% 收入来自周边。通过 RedNote 种草优势对接电商化需求。</p>
+                </div>
+                <div class="brand-card">
+                    <div class="brand-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="#ff2e63" stroke-width="1.5"/><path d="M8 12h8M12 8v8" stroke="#ff2e63" stroke-width="1.2" stroke-linecap="round"/></svg>
+                    </div>
+                    <h4>Maison Kitsuné</h4>
+                    <div class="brand-origin">Paris</div>
+                    <p>跨界时尚与音乐的巴黎厂牌，视觉属性极强，天然适合小红书内容审美。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-block">
+            <h2>合作模式</h2>
+            <div class="collab-grid">
+                <div class="collab-card">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="8" width="24" height="16" rx="2" stroke="#ff2e63" stroke-width="1.2"/><circle cx="16" cy="16" r="4" stroke="#ff2e63" stroke-width="1.2"/><path d="M22 12l-2 2" stroke="#ff2e63" stroke-width="1"/></svg>
+                    <div>
+                        <h4>"厂牌主页"入驻</h4>
+                        <p>邀请大型 DJ 厂牌官方入驻 RedNote，发布独家演出内容、试听、演出穿搭。</p>
+                    </div>
+                </div>
+                <div class="collab-card">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M4 16h6l3-8 3 16 3-8h6" stroke="#ff2e63" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <div>
+                        <h4>"现场 Recap" 话题</h4>
+                        <p>通过"氛围感笔记"和"DJ 私服解构"，将线下高净值流量沉淀至线上社区。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-strip">
+            <h3 style="font-family:var(--fash-font);font-style:italic">1.2 音乐周边与商业闭环</h3>
+            <p>Soulection 等厂牌 60-70% 收入来自周边（Merchandise）。小红书的种草优势完美对接音乐品牌电商化需求。</p>
+            <div class="merch-bar">
+                <div class="merch-fill" style="width:65%;background:var(--fash-accent)">周边 65%</div>
+                <div class="merch-fill" style="width:20%;background:#333">演出 20%</div>
+                <div class="merch-fill" style="width:15%;background:#666">其他 15%</div>
+            </div>
+            <div class="merch-labels" style="color:#fff">
+                <span>Merchandise</span>
+                <span>Live Shows</span>
+                <span>Other</span>
+            </div>
+        </div>
+
+        <div class="section-block">
+            <h2>落地路径</h2>
+
+            <table class="data-table">
+                <thead>
+                    <tr><th>资源维度</th><th>核心资产</th><th>落地路径</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>DJ 厂牌</td><td>现场流量 / 垂直粉丝 / 潮流周边</td><td>官方入驻 + 氛围感视频 + 联名快闪店</td></tr>
+                    <tr><td>伦敦/北美圈层</td><td>时装周准入 / 设计师社区 / Showroom</td><td>话题挑战赛 + 秀场直播 + B2B 买手对接</td></tr>
+                    <tr><td>出海品牌</td><td>全球声誉 / 跨界合作案例</td><td>品牌自播 + 国际博主联名测评 + 跨境电商转化</td></tr>
+                </tbody>
+            </table>
+
+            <div class="collab-grid">
+                <div class="collab-card">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 4l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" stroke="#ff2e63" stroke-width="1.2" stroke-linejoin="round"/></svg>
+                    <div>
+                        <h4>限定周边首发</h4>
+                        <p>利用小红书电商集成能力，合作厂牌在 RedNote 发布限定联名款。</p>
+                    </div>
+                </div>
+                <div class="collab-card">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="3" y="5" width="26" height="22" rx="3" stroke="#ff2e63" stroke-width="1.2"/><path d="M10 14l4 4 8-8" stroke="#ff2e63" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <div>
+                        <h4>"Sound & Style" 策展</h4>
+                        <p>邀请 DJ 以"音乐 + 穿搭"策展形式发布短视频，建立"听觉 + 视觉"立体种草场景。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tag-container">
+                <span class="tag">BOILER ROOM</span>
+                <span class="tag">SOULECTION</span>
+                <span class="tag">MAISON KITSUNÉ</span>
+                <span class="tag">MERCH ECONOMY</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 RedNote x DLY AI Co-Work Proposal. Strictly Confidential.</p>
+    </footer>
+</body>
+</html>
